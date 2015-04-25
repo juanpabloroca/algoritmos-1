@@ -1,0 +1,130 @@
+#include "stdafx.h"
+#include "math.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+#define fil 20
+#define col 20
+
+struct telemento
+{
+	int mat[20][20];
+};
+
+void clasificarburbuja(int v[], int n);
+void ordenar(telemento M[fil][col], int n);
+void mostrarVector(int v[], int n);
+void llenar(telemento M[fil][col], int n);
+void mostrar(telemento M[fil][col], int n);
+
+int main()
+{
+	int n;	
+	telemento M[20][20];
+	cout << "Ingrese cantidad de filas=columnas: ";
+	cin >> n;
+
+	llenar(M, n);
+	mostrar(M, n);
+	ordenar(M, n);
+	mostrar(M, n);
+
+	system("pause");
+
+}
+
+
+
+void llenar(telemento M[fil][col], int n)
+{
+	int i, j, k, l, valor;
+	int nroMatriz = 0;
+	
+	for (i = 0; i<n; i++)
+	{		
+		for (j = 0; j<n; j++)
+		{
+		
+			for (k = 0; k<n; k++)
+			{
+				for (l = 0; l<n; l++)
+					
+				{
+					cout << "Ingrese un valor: ";
+					cin >> valor;
+					M[i][j].mat[k][l] = valor;
+				}
+			}
+		}
+	}
+}
+
+
+1
+void ordenar(telemento M[fil][col], int n)		
+{
+	cout << "VECTOR ORDENADO" << endl << endl;
+	int i, j, k, l, m;
+	int v[fil];									
+	for (i = 0; i<n; i++)						
+	{
+		for (j = 0; j<n; j++)
+		{
+			for (k = 0; k<n; k++)
+			{
+				for (l = 0; l<n; l++)			
+				{								 
+					v[l] = M[i][j].mat[k][l];	
+				}								
+				clasificarburbuja(v, n);		
+				for (m = 0; m<n; m++)			
+				{								
+					M[i][j].mat[k][m] = v[m];
+				}
+			}
+		}
+	}
+}
+
+void clasificarburbuja(int v[], int n){
+	int i, j;
+	int temp;
+	for (int i = 1; i < n; i++){
+		for (int j = 0; j < n - 1; j++){
+			if (v[j] < v[j + 1]){			
+				temp = v[j];					
+				v[j] = v[j + 1];				
+				v[j + 1] = temp;
+			}
+		}
+	}
+	
+}
+
+void mostrarVector(int v[], int n){	
+		for (int j = 0; j < n; j++)
+			cout << v[j] << " ";			
+		cout << "\n";
+}
+
+
+
+void mostrar(telemento M[fil][col], int n)
+{
+	int i, j, k, l;
+	for (i = 0; i<n; i++)
+	{
+		for (j = 0; j<n; j++)
+		{
+			for (k = 0; k<n; k++)
+			{
+				for (l = 0; l<n; l++)
+				{
+					cout << M[i][j].mat[k][l] << " ";
+				}cout << endl;
+			}cout << endl;
+		}cout << endl;
+	}cout << endl;
+}
