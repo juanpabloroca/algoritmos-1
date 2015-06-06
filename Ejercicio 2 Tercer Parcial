@@ -1,0 +1,200 @@
+#include "stdafx.h"
+#include "stdio.h"
+#include "conio.h"
+#include <string>
+#include <iostream>
+
+//******************AGENDA****************
+using namespace std;
+
+
+struct tipo_contacto
+{
+	
+	string nombre;
+	string apellido;
+	int edad;
+	string categoria;
+};
+
+tipo_contacto Contacto;
+ 
+FILE*alias;
+ 
+void menu();
+bool ALTA_SECUENCIAL();
+void LISTADO_SECUENCIAL();
+void MODIFICACION();
+
+
+
+int main()
+{
+	
+	system("cls");
+	int opcion = 9;
+	while (opcion != 0){
+		menu();
+		cin >> opcion;
+		
+		switch (opcion){
+		case 1:
+			LISTADO_SECUENCIAL();
+			system("pause");
+			break;
+		case 2:
+			if (ALTA_SECUENCIAL())
+			{
+				cout << "Inserto Corectamente \n";
+			}
+			else{
+				cout << "No se Inserto \n";
+			}
+			system("pause");
+			break;
+		case 3:
+			MODIFICACION();
+			
+			system("pause");
+			break;
+
+
+		default:
+			printf("\nOpcion Incorrecta!!\n");
+			system("pause");
+			break;
+		}
+
+	}
+}
+
+void menu(){
+	system("cls");
+	cout<<"Menu ";
+	cout<<"\n 1.- Mostrar Contatos";
+	cout<<"\n 2.- Insertar Contactos";
+	cout<<"\n 3.- Adjustar por categoria";
+	cout<<"\n\n   OPCION #: ";
+}
+
+bool ALTA_SECUENCIAL()
+{
+	
+	cout << "\n\n\n\rALTAS DE CONTACTOS";
+	cout << "\n\n\n\rNumero de contacto: ";
+	
+	alias = fopen("AGENDA.DAT", "rb+"); 
+	if (alias == NULL)
+	{
+		alias = fopen("AGENDA.DAT", "wb");
+	}
+	else
+	{
+		fread(&Contacto, sizeof(Contacto), 1, alias);
+		
+		while (!feof(alias)) 
+		{
+			if (Contacto.idAmigo == idAmigo)
+			{
+				cout << "\n\n\n\rContacto ya existe!!! \n";
+				fclose(alias);
+				return false;
+			}
+			fread(&Contacto, sizeof(Contacto), 1, alias);
+		}
+
+		fclose(alias);
+		alias = fopen("AGENDA.DAT", "ab");
+	}
+
+		
+	cout << "\n\rNombre : ";
+	getline(cin, Contacto.nombre);	
+	cout << "\n\rApellido : ";
+	getline(cin, Contacto.apellido);
+	cout << "\n\rEdad : ";
+	cin >> Contacto.edad;
+	Contacto.categoria = "";
+	Contacto.idAmigo = idAmigo;
+	fwrite(&Contacto, sizeof(Contacto), 1, alias); 
+	fclose(alias);  
+	cout << "\n\n\n\rContacto registrado !!!";
+
+	return true;
+}
+
+void LISTADO_SECUENCIAL(void)
+{
+	cout << "\n\rLISTADO DE CONTACTOS";
+	alias = fopen("AGENDA.DAT", "rb");  
+	if (alias == NULL)
+	{
+		cout << "\n\n\n\rNo existe el archivo !!!";
+		cout << "\n\r<<< Oprima cualquier tecla para continuar >>>";
+		return;
+	}
+	cout << "\n\ridAmigo Nombre Apellido edad";
+	cout << "\n\r------------------------------------------------------------------------ \n";
+	fread(&Contacto, sizeof(Contacto), 1, alias);
+ 
+	while (!feof(alias))  
+	{
+
+		cout << Contacto.idAmigo << " " << Contacto.nombre << " " << Contacto.apellido << " " << Contacto.edad << " " << Contacto.categoria << "\n";
+		fread(&Contacto, sizeof(Contacto), 1, alias);
+	}
+	fclose(alias);  
+	cout << "\r------------------------------------------------------------------------";
+	cout << "\n\rFin del listado !!!";
+	cout << "\n\r<<< Oprima cualquier tecla para continuar >>>";
+	return;
+}
+
+void MODIFICACION()
+{
+	FILE *temporal; 
+	alias = fopen("AGENDA.DAT", "rb+");  
+	 
+	if (alias == NULL)  
+	{
+		cout << "\n\n\n\rNo existe el archivo !!!";
+		cout << "\n\r<<< Oprima cualquier tecla para continuar >>>";
+		getchar();
+		return;
+	}
+	temporal = fopen("TEMPORAL.TMP", "wb");  
+	fread(&Contacto, sizeof(Contacto), 1, alias);
+	
+	 
+	while (!feof(alias))  
+	{
+
+		if (Contacto.edad >= 0 && Contacto.edad <= 12)					 
+			Contacto.categoria = "Niniez";
+		else{
+			if (Contacto.edad >= 13 && Contacto.edad <= 21){
+				Contacto.categoria = "Juventud";
+			}
+			else{
+				if (Contacto.edad >= 22 && Contacto.edad <= 70){
+					Contacto.categoria = "Adultez";
+				}
+				else{
+					Contacto.categoria = "Ancianidad";
+				}
+			}
+		}
+
+		fwrite(&Contacto, sizeof(Contacto), 1, temporal);
+		
+		fread(&Contacto, sizeof(Contacto), 1, alias);
+	}
+	fclose(alias);
+	fclose(temporal);
+	remove("AGENDA.DAT");  
+	rename("TEMPORAL.TMP", "AGENDA.DAT");
+	 
+	cout << "\n\r<<< Oprima cualquier tecla para continuar >>>";
+	getchar();
+	return;
+}
