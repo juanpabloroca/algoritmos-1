@@ -1,0 +1,152 @@
+#include "stdafx.h"
+#include <conio.h>
+#include <stdio.h>
+#include <iostream>
+
+#define n 3
+using namespace std;
+
+void leer_matriz(int M[n][n]);
+int suma_filas(int M[n][n],int a);
+int suma_columnas(int M[n][n],int a);
+int suma_diagonal1(int M[n][n]);
+int suma_diagonal2(int M[n][n]);
+void mostrar_vector(int V[n]);
+
+void main()
+{
+	int M[n][n],F[n],C[n];
+	int a,x,y,band1=0,band2=0;
+	leer_matriz(M);
+	for(a=0;a<n;a++)
+	 {
+		 F[a]=suma_filas(M,a);
+		 C[a]=suma_columnas(M,a);
+	 }
+	x=suma_diagonal1(M);
+	y=suma_diagonal2(M);
+	//mostrando las sumas//
+	cout<<("suma filas ");
+	mostrar_vector(F);//mostrandolas sumas de las filas//
+	cout<<("suma columnas ");
+	mostrar_vector(F);//mostrandolas sumas de las columnas//
+	cout<<("la diagonal 1= ");
+	cout<<("%d ",x);//mostrando suma de la diagonal 1//
+	cout<<("%d ",y);//mostrando suma de la diagonal 2//
+
+	//endl//
+
+	for(a=0;a<n-1;a++)
+	{
+		if(F[a]!=F[a+1])
+		{ band1++;
+		break;
+		}
+	}
+	if(band1==1)
+	{
+		cout<<("el cuadrado no es magico ");
+	}
+	else
+	{ 
+		for(a=0;a<n-1;a++)
+		{
+			if(C[a]=C[a+1])
+			{ band2++;
+			break;
+			}
+		}
+		if(band2==1)
+		{
+			cout<<("el cuadrado no es magico ");
+	    }
+		else
+		{
+			if(F[a]==C[a])
+			{
+				if(C[a]==x)
+				{
+					if(x==y)
+					{
+						cout<<("el cuadrado  es magico ");
+					}
+					else
+					{
+						cout<<("el cuadrado no es magico ");
+					}
+				}
+				else
+				{
+					cout<<("el cuadrado no es magico ");
+				}
+			}
+			else
+			{
+				cout<<("el cuadrado no es magico ");
+			}
+		}
+	}
+	_getch();
+}
+
+void leer_matriz(int M[n][n])
+{
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			cout<<("numero M[%d][%d]=",i,j);
+			cin>>("%d",&M[i][j]);
+		}
+	}
+}
+
+int suma_filas(int i[n][n],int a)
+{
+	int suma=0;
+	for(int i=0;i<n;i++)
+	{
+		suma=suma+M[a][i];
+	}
+	return(suma);
+}
+
+int suma_columna(int M[n][n], int a)
+{
+	int suma=0;
+	for(int j=0;j<n;j++)
+	{
+		suma=suma+M[j][a];
+	}
+	return(suma);
+}
+int suma_diagonal1(int M[n][n])
+{
+	int suma=0;
+	for(int i=0;i<n;i++)
+	{
+		suma=suma+M[i][i];
+	}
+	return(suma);
+}
+
+int suma_diagonal2(int M[n][n])
+{
+	int suma=0;
+	int x=n-1;
+	for(int j=0;j<n;j++)
+	{
+		suma=suma+M[j][x];
+		x--;
+	}
+	return(suma);
+}
+
+void mostrar_vector(int V[n])
+{
+	for(int i=0;i<n;i++)
+	{
+		cout<<("numero[%d]=%d",i,V[i]);
+	}
+}
+
