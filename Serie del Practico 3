@@ -1,0 +1,43 @@
+#include "stdafx.h"
+#include "iostream"
+#include "conio.h"
+#include "stdio.h"
+#include "math.h"
+using namespace std;
+void imprimirSerie12 (int n);
+int invNum (int n);
+void main (void)
+{ 
+int n;
+cout << "Ingrese n: ";
+cin >> n;
+imprimirSerie12 No;
+getch ();
+}
+void imprimirSerie12 (int n)
+{
+int i, ter;
+for (i = 1; i <= n; i++)
+{
+if (i <= 3)
+ter = pow (float (i),2);
+else 
+{
+ter = pow (float (i),2);
+ter = invNum (ter);
+}
+cout << ter << ", ";
+}
+}
+int invNum (int n)
+{
+int s, dig;
+s = 0;
+while (n > 0)
+{
+dig = n % 10;
+s = s * 10 + dig;
+n = int (n/10);
+}
+return (s);
+}
