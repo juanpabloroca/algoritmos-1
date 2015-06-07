@@ -1,0 +1,25 @@
+#include "stdafx.h"
+#include "iostream"
+#include "conio.h"
+#include "stdio.h"
+#include "math.h"
+using namespace std;
+void Serie8 (int n);
+void main (void)
+{ 
+int n;
+cout << "Ingrese n: ";
+cin >> n;
+Serie8 No;
+getch ();
+}
+void Serie8 (int n)
+{
+int i, ter;
+ter = 3;
+for (i = 1; i <= n; i++)
+{
+cout << ter << ", ";
+ter = ter + 3;
+}
+}
