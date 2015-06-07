@@ -1,0 +1,266 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+#define TAM 100
+using namespace std;
+void cargarmatriz(int matriz[TAM][TAM], int n, int m);
+void mostrarmatriz(int matriz[TAM][TAM],int n,int m);
+void transponer(int matriz[TAM][TAM],int n,int m);
+void main()
+{ int matriz[TAM][TAM], n,m;
+cout<<"introduzca el numero de filas de la matriz\n";
+cin>>n;
+cout<<"introduzca el numero de columnas de la matriz\n";
+cin>>m;
+cargarmatriz(matriz,n,m);
+mostrarmatriz(matriz,n,m);
+transponer(matriz,n,m);
+_getch();
+}
+
+void cargarmatriz(int matriz[TAM][TAM], int n, int m)
+{ 
+	
+	for(int i=1;i<=n;i++)
+    { for(int k=1; k<=m;k++)
+
+			{ cout<<"Introduzca el elemento ["<<i<<","<<k<<"]\n";
+				 cin>>matriz[i][k];
+			}	 
+	}	  
+
+}
+void mostrarmatriz(int matriz[TAM][TAM],int n,int m)
+{  cout<<"\n---------La matriz sin transponer es --------\n\n";
+	for(int i=1;i<=n;i++)
+	{cout<<"\n";
+		for(int k=1;k<=m;k++)
+		cout<<" "<<matriz[i][k]; 
+
+}
+
+}
+void transponer(int matriz[TAM][TAM],int n,int m)
+{	cout<<"\n---------La matriz transpuesta es --------\n\n";
+		for(int i=1;i<=m;i++)
+			{cout<<"\n";
+				for(int k=1;k<=n;k++)
+					cout<<" "<<matriz[k][i]; 
+			}
+
+
+}
+
+
+
+Suma DE MATRICES DE MISMO ORDEN 
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+#define TAM 100
+using namespace std;
+void cargarmatriz(int matriz[TAM][TAM], int n, int m);
+void cargarmatrizb(int matrizb[TAM][TAM], int n, int m);
+void mostrarmatriz(int matriz[TAM][TAM],int n,int m);
+void mostrarmatrizb(int matrizb[TAM][TAM],int n,int m);
+void sumar(int matriz[TAM][TAM],int matrizb[TAM][TAM],int matrizc[TAM][TAM],int n,int m);
+
+void main()
+{ int matriz[TAM][TAM],matrizb[TAM][TAM],matrizc[TAM][TAM],n,m,n1,m1;
+cout<<"introduzca el numero de filas de la matriz a\n";
+cin>>n;
+cout<<"introduzca el numero de columnas de la matriz a \n";
+cin>>m;
+cout<<"introduzca el numero de filas de la matriz b\n";
+cin>>n1;
+cout<<"introduzca el numero de columnas de la matriz b \n";
+cin>>m1;
+if( n==n1 &&  m==m1)
+{cargarmatriz(matriz,n,m);
+cargarmatrizb(matrizb,n,m);
+cout<<"--------MATRIZ A-----\n";
+mostrarmatriz(matriz,n,m);
+cout<<"--------MATRIZ B-----\n";
+mostrarmatrizb(matrizb,n,m);
+cout<<"--------MATRIZ (SUMA) C-----\n";
+sumar(matriz,matrizb,matrizc,n,m);
+}
+else
+cout<<"La matriz no se puede sumar\n";
+_getch();
+}
+void cargarmatriz(int matriz[TAM][TAM], int n, int m)
+{ 
+	
+	for(int i=1;i<=n;i++)
+    { for(int k=1; k<=m;k++)
+
+			{ cout<<"Introduzca el elemento ["<<i<<","<<k<<"] de la matriz A \n";
+				 cin>>matriz[i][k];
+			}	 
+	}	
+
+}
+void cargarmatrizb(int matriz[TAM][TAM], int n, int m)
+{ 
+	
+	for(int i=1;i<=n;i++)
+    { for(int k=1; k<=m;k++)
+
+			{ cout<<"Introduzca el elemento ["<<i<<","<<k<<"] de la matriz B \n";
+				 cin>>matriz[i][k];
+			}	   
+	}
+}
+void mostrarmatriz(int matriz[TAM][TAM],int n,int m)
+{ 
+	for(int i=1;i<=n;i++)
+	{cout<<"\n";
+		for(int k=1;k<=m;k++)
+		cout<<" "<<matriz[i][k];
+
+}
+	cout<<"\n"; 
+}
+void mostrarmatrizb(int matrizb[TAM][TAM],int n,int m)
+{ 
+	for(int i=1;i<=n;i++)
+	{cout<<"\n";
+		for(int k=1;k<=m;k++)
+		cout<<" "<<matrizb[i][k]; 
+
+		}		
+	cout<<"\n"; 
+}
+void sumar(int matriz[TAM][TAM],int matrizb[TAM][TAM],int matrizc[TAM][TAM],int n,int m)
+{     for(int i=1;i<=n;i++)
+	{	cout<<"\n";
+		for(int k=1;k<=m;k++)
+		{matrizc[i][k]=matriz[i][k]+matrizb[i][k];
+		cout<<" "<<matrizc[i][k];
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Multiplicación de matrices
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+#define TAM 100
+using namespace std;
+void cargarmatriz(int matriz[TAM][TAM], int n, int m);
+void cargarmatrizb(int matrizb[TAM][TAM], int m, int m1);
+void mostrarmatriz(int matriz[TAM][TAM],int n,int m);
+void mostrarmatrizb(int matrizb[TAM][TAM],int m,int m1);
+void multiplicar(int matriz[TAM][TAM],int matrizb[TAM][TAM],int matrizc[TAM][TAM],int n,int m,int m1);
+void mostrarmatrizc(int matrizc[TAM][TAM],int n,int m1);
+
+void main()
+{ int matriz[TAM][TAM],matrizb[TAM][TAM],matrizc[TAM][TAM],n,m,n1,m1;
+cout<<"introduzca el numero de filas de la matriz a\n";
+cin>>n;
+cout<<"introduzca el numero de columnas de la matriz a \n";
+cin>>m;
+cout<<"introduzca el numero de filas de la matriz b\n";
+cin>>n1;
+cout<<"introduzca el numero de columnas de la matriz b \n";
+cin>>m1;
+if( m==n1)
+{cargarmatriz(matriz,n,m);
+cargarmatrizb(matrizb,m,m1);
+cout<<"--------MATRIZ A-----\n";
+mostrarmatriz(matriz,n,m);
+cout<<"--------MATRIZ B-----\n";
+mostrarmatrizb(matrizb,n1,m1);
+cout<<"--------MATRIZ (PRODUCTO) C-----\n";
+multiplicar(matriz,matrizb,matrizc,n,m,m1);
+mostrarmatrizc(matrizc,n,m1);
+}
+else
+cout<<"La matriz no se puede multiplicar\n";
+_getch();
+}
+void cargarmatriz(int matriz[TAM][TAM], int n, int m)
+{ 
+	
+	for(int i=1;i<=n;i++)
+    { for(int k=1; k<=m;k++)
+
+			{ cout<<"Introduzca el elemento ["<<i<<","<<k<<"] de la matriz A \n";
+				 cin>>matriz[i][k];
+			}	 
+	}	
+
+}
+void cargarmatrizb(int matriz[TAM][TAM], int m, int m1)
+{ 
+	
+	for(int k=1;k<=m;k++)
+    { for(int j=1; j<=m1;j++)
+
+			{ cout<<"Introduzca el elemento ["<<k<<","<<j<<"] de la matriz B \n";
+				 cin>>matriz[k][j];
+			}	   
+	}
+}
+void mostrarmatriz(int matriz[TAM][TAM],int n,int n1)
+{ 
+	for(int i=1;i<=n;i++)
+	{cout<<"\n";
+		for(int j=1;j<=n1;j++)
+		cout<<" "<<matriz[i][j];
+
+}
+	cout<<"\n"; 
+}
+void mostrarmatrizb(int matrizb[TAM][TAM],int m,int m1)
+{ 
+	for(int j=1;j<=m;j++)
+	{cout<<"\n";
+		for(int k=1;k<=m1;k++)
+		cout<<" "<<matrizb[j][k]; 
+
+		}		
+	cout<<"\n"; 
+}
+void multiplicar(int matriz[TAM][TAM],int matrizb[TAM][TAM],int matrizc[TAM][TAM],int n,int m,int m1)
+{    for (int i=1;i<=n;i++)
+    {for (int j=1;j<=m1;j++)
+       { matrizc[i][j]=0;
+         for (int k=1;k<=m;k++) 
+          {matrizc[i][j]=matrizc[i][j]+(matriz[i][k]*matrizb[k][j]);
+          }
+       }    
+    }
+}
+void mostrarmatrizc(int matrizc[TAM][TAM],int n,int m1)
+{ 
+	for(int i=1;i<=n;i++)
+	{cout<<"\n";
+		for(int k=1;k<=m1;k++)
+		cout<<" "<<matrizc[i][k]; 
+
+		}		
+	cout<<"\n"; 
+}
+
