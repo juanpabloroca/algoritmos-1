@@ -1,0 +1,172 @@
+#include "stdafx.h"
+#include  <conio.h>
+#include <iostream>
+using namespace std;
+
+bool cambiar_pivote(int nfil, int ncol, int i, float mat[20][20], float id[20][20]);
+
+void cargar_matriz(float mat[20][20], int nf, int nc);
+
+void mostrar_matriz(float mat[20][20], int nf, int nc);
+
+void cargar_matriz_identidad(float id[20][20], int nf, int nc);
+
+bool inversa(float mat[20][20], float id[20][20], int nfil, int ncol);
+
+void main()
+{
+	float mat[20][20];
+	float id[20][20];
+	bool se_pudo_invertir;
+	int N, i=1;
+
+	cout << "Ingrese el orden de la matriz cuadrada: ";
+	
+	cin >> N;
+	cargar_matriz(mat,N, N);
+	cout << endl;
+
+	cout << "MATRIZ ORIGINAL" << endl;
+	mostrar_matriz(mat,N,N);
+	cout << endl;
+
+	cout << "MATRIZ INVERSA" << endl;
+	se_pudo_invertir = inversa(mat, id, N,N);
+	if( se_pudo_invertir )
+	{
+		mostrar_matriz(mat, N,N);
+	}
+	else
+	{
+		cout << "* No se pudo invertir" << endl;
+	}
+	
+	_getch();
+}
+bool cambiar_pivote(int nfil, int ncol, int i, float mat[20][20], float id[20][20])
+{
+	int l=i+1, j;
+	float aux;
+	bool encontre_nuevo = false;
+
+	while((l<nfil) && (mat[i][i]==0))
+	{
+		if(mat[l][i]!=0)
+		{
+			for(j=0;j<ncol;j++)
+			{
+				aux=mat[l][j];
+				mat[l][j]=mat[i][j];
+				mat[i][j]=aux;
+				aux=id[l][j];
+				id[l][j]=id[i][j];
+				id[i][j]=aux;
+			}
+			encontre_nuevo = true;
+		}
+	}
+
+	return encontre_nuevo;
+}
+
+void cargar_matriz(float mat[20][20], int nf, int nc)
+
+{
+	int i,j;
+	float nro;
+
+	for (i=0; i<nf; i++)
+	{
+		for (j=0; j<nc; j++)
+		{
+			cout << "mat[" << i << "][" << j << "] = ";
+			cin >> nro;
+			mat[i][j] = nro;
+		}
+	}
+
+}
+
+void mostrar_matriz(float mat[20][20], int nf, int nc)
+{
+	int i,j;
+	for (i=0; i<nf; i++)
+	{
+		for (j=0; j<nc; j++)
+		{
+			printf("%9.2f", mat[i][j]);
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+
+void cargar_matriz_identidad(float id[20][20], int nf, int nc)
+{
+	for(int i=0; i<nf;i++ )
+	{
+		for (int j=0; j<nc;j++)
+		{
+			if(i==j)
+			{
+				id[i][j]=1;
+
+			}
+			else
+			{
+				id[i][j]=0;
+			}
+		}
+	}
+}
+
+bool inversa(float mat[20][20], float id[20][20], int nfil, int ncol)
+{
+	int i=0, j, k;
+	bool invertible = true;
+	float elemento;
+
+	cargar_matriz_identidad(id,nfil,ncol);
+	while((i<nfil) && invertible )
+	{
+		// Si la siguiente diagonal a usar es igual a cero, hay que intentar obtener otra
+		if( mat[i][i]==0 )
+		{
+			invertible = cambiar_pivote(nfil,ncol,i, mat, id);
+		}
+		// Si el ultimo cambio de pivote fue exitoso, procedemos
+		if( invertible )
+		{
+			elemento = mat[i][i];
+			for(j=0; j<ncol; j++)
+			{
+				mat[i][j] = mat[i][j]/elemento;
+				id[i][j]  = id[i][j]/elemento;
+			}
+			for(k=0; k<nfil; k++)
+			{
+				if( k != i )
+				{
+					elemento = mat[k][i];
+					for(j=0; j<ncol; j++)
+					{
+						mat[k][j] = mat[k][j] - (mat[i][j] * elemento);
+						id[k][j]  = id[k][j]  - (id[i][j]  * elemento);
+					}
+				}
+			}
+		}
+		i=i+1;
+	}
+
+	// Copiamos el resultado a la matriz original
+	for( i=0; i<nfil;i++ )
+	{
+		for ( j=0; j<ncol;j++ )
+		{
+			mat[i][j] = id[i][j];
+		}
+	}
+
+	return invertible;
+}
