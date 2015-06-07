@@ -1,0 +1,74 @@
+// salario con vectores.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include "conio.h"
+#include "math.h"
+#include <iostream>
+
+using namespace std;
+
+void cargar(float vec1[],int dimension);
+void mostrar(float vec1[],int dimension);
+void salario(float vec1[],int dimension,float salarioneto[]);
+
+
+
+int main()
+{float vec[60]={0},salarioneto[60]={0};
+ int dimension,i;
+
+ cout<<"por favor ingrese la dimension del vector"<<endl;
+
+ cin>>dimension;
+
+ cargar(vec,dimension);
+
+ salario(vec,dimension,salarioneto);
+
+ cout<<"planilla de salario:"<<endl;
+
+ cout<<endl<<"salario bruto     salario neto"<<endl;
+
+ for(i=0;i<dimension;i++)
+ {cout<<vec[i]<<"               "<<salarioneto[i]<<endl;
+ }
+
+ system("pause");
+ return 0;
+}
+
+void cargar(float vec1[],int dimension)
+{int i;
+ for(i=0;i<dimension;i++)
+ {cout<<"se pide salario bruto"<<i+1<<endl;
+  cin>>vec1[i];
+ }
+}
+void mostrar(float vec1[],int dimension)
+{int i;
+ for(i=0;i<dimension;i++)
+	 cout<<vec1[i]<<endl;
+}
+void salario(float vec1[],int dimension,float salarioneto[])
+{
+	float iva=0.13, afp=0.121, p=0,s;
+
+	int i,minimo=1400;
+ 
+	for(i=0;i<dimension;i++)
+ {
+	 if(vec1[i]>minimo)
+  {
+	  salarioneto[i]=vec1[i]-vec1[i]*iva-vec1[i]*afp;  
+  
+	 }
+
+  
+	 p=p+salarioneto[i];
+ }
+ s=(p/dimension);
+
+ cout<<endl<<"el promedio es:"<<s<<endl;
+ 
+}
