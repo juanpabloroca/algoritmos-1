@@ -1,0 +1,57 @@
+//Solucion para ecuacion cuadratica "ax^2+bx+y=0."
+
+#include "stdafx.h"
+#include "conio.h"
+#include "stdio.h"
+#include "math.h"
+
+float ecuacion_lineal(float b,float c);
+float calculo_raiz(float a,float b,float c);
+void raiz_compleja(float a,float b,float raiz);
+
+void main()
+{float a,b,c,x1,x2,raiz;
+printf("\nSea una ecuacion de la forma ax^2+bx+c");
+printf("\nDetermine a:");
+scanf("%f", &a);
+printf("\nDetermine b:");
+scanf("%f", &b);
+printf("\nDetermine c:");
+scanf("%f", &c);
+if(a==0)
+  {x1= ecuacion_lineal(b,c);
+  printf("\nX= %f",x1);
+  }
+else
+  {raiz=calculo_raiz(a,b,c);
+   if(raiz<=0)
+   {x1=(-b+sqrt(raiz))/(2*a);
+    x2=(-b-sqrt(raiz))/(2*a);
+  printf("\nX1= %f",x1);
+  printf("\nX2= %f",x2);
+   }
+   else
+   raiz_compleja(a,b,raiz);
+}
+getch();
+}
+
+float ecuacion_lineal(float b,float c)
+{float x;
+x=-(c/b);
+return x;
+}
+
+float calculo_raiz(float a,float b,float c)
+{float raiz;
+raiz=(b*b)-(4*a*c);
+return raiz;
+}
+
+void raiz_compleja(float a,float b,float raiz)
+{float real,imaginario;
+real=(-b)/(2*a);
+imaginario=sqrt(-raiz)/(2*a);
+printf("x1= %f+%fi",real,imaginario);
+printf("x2= %f-%fi",real,imaginario);
+}
