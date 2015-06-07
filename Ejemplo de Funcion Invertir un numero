@@ -1,0 +1,12 @@
+int InvertirNumero(int numero)
+{
+	int numeroInvertido = 0;
+
+	while(numero > 0)
+	{
+		numeroInvertido = (numeroInvertido * 10) + (numero % 10);
+		numero = numero / 10;
+	}
+
+	return numeroInvertido;
+}
